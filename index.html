@@ -18,8 +18,13 @@
 			event.preventDefault();
 			var url = "https://api.github.com/users/" + $('#search').val() + '?access_token=e36c94d9874f7626262f92f36c9b78b35e8b50de'; 
 			$.get(url, function(user){
-				$('<article><ul><li>' + '<img src="' + user.avatar_url + '"></li><li>Repos: ' + user.public_repos + '</li><li>Name: ' + user.name + '</li><li>Location: ' + user.location + '</li><li>Email: ' + user.email + '</li></ul></article>').appendTo('main');
-			});
+				$('<article><ul><li>' + '<img src="' + user.avatar_url + '"></li><li>Repos: ' + user.public_repos + '</li><li>Name: ' + user.name + '</li><li>Location: ' + user.location + '</li><li>Email: ' + user.email + '</li></ul></article>').prependTo('main');
+			}).always(function(){
+			$('#search').val('');
+			$('main article:gt(3)').slideToggle(function(){
+				$(this).remove();
+			})
+		});
 		});
 	})
 	</script>
