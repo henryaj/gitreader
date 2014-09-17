@@ -13,6 +13,17 @@
 			<input class="pure-input-1" type="text" id="search" placeholder='username'>
 			<!-- <button type="submit" class="pure-button pure-button-primary">Submit</button> -->
 		</form>
+		<template>
+			<article>
+				<ul>
+					<li><a href="http://github.com/{{login}}"><img src="{{avatar_url}}" ></a></li>
+					<li><strong> {{name}} </strong></li>
+					<li>Repos: {{public_repos}}</li>
+					<li>Location: {{location}}</li>
+					<li>Email: <a href="mailto:{{email}}"> {{email}} </a></li>
+				</ul>
+			</article>
+		</template>
 		<main>
 		</main>
 		</div>
@@ -20,20 +31,21 @@
 </div>
 	</body>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="/mustache.js"></script>
 	<script>
 	$(document).ready(function(){
 		$('form').on('submit', function(event){
 			event.preventDefault();
 			var url = "https://api.github.com/users/" + $('#search').val() + '?access_token=e36c94d9874f7626262f92f36c9b78b35e8b50de'; 
-			$.get(url, function(user){
-				$('<article><ul><li>' + '<a href="http://github.com/' + $('#search').val() + '"><img src="' + user.avatar_url + '" ></a></li><li><strong>' + user.name + '</strong></li><li>Repos: ' + user.public_repos + '</li><li>Location: ' + user.location + '</li><li>Email: <a href="mailto:' + user.email + '">' + user.email + '</	a></li></ul></article>').hide().prependTo('main').fadeIn();
-			}).always(function(){
-			$('#search').val('');
-			$('main article:gt(3)').slideToggle(function(){
-				$(this).remove();
+
+			var user = $.get(url, function(data){
+				var template = $('template').html();
+				console.log(data);
+				var rendered = Mustache.to_html(template, data);
+				
+				$('main').prepend(rendered);	
+				})
 			})
-		});
-		});
-	})
+		})
 	</script>
 </html>
