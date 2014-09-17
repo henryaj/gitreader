@@ -3,7 +3,7 @@
 	<head>
 		<title>Gitreader</title>
 		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-		<link rel="stylesheet" type="text/css" href="index.css"> 
+		<link rel="stylesheet" type="text/css" href="/index.css"> 
 	<meta charset="UTF-8">
 	<body>
 	<div class="pure-g">
@@ -26,7 +26,7 @@
 			event.preventDefault();
 			var url = "https://api.github.com/users/" + $('#search').val() + '?access_token=e36c94d9874f7626262f92f36c9b78b35e8b50de'; 
 			$.get(url, function(user){
-				$('<article><ul><li>' + '<a href="http://github.com/' + $('#search').val() + '"><img src="' + user.avatar_url + '" ></a></li><li><strong>' + user.name + '</strong></li><li>Repos: ' + user.public_repos + '</li><li>Location: ' + user.location + '</li><li>Email: <a href="mailto:' + user.email + '">' + user.email + '</	a></li></ul></article>').prependTo('main');
+				$('<article><ul><li>' + '<a href="http://github.com/' + $('#search').val() + '"><img src="' + user.avatar_url + '" ></a></li><li><strong>' + user.name + '</strong></li><li>Repos: ' + user.public_repos + '</li><li>Location: ' + user.location + '</li><li>Email: <a href="mailto:' + user.email + '">' + user.email + '</	a></li></ul></article>').hide().prependTo('main').fadeIn();
 			}).always(function(){
 			$('#search').val('');
 			$('main article:gt(3)').slideToggle(function(){
