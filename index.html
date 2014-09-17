@@ -1,15 +1,23 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<title>Hello!</title>
+		<title>Gitreader</title>
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+		<link rel="stylesheet" type="text/css" href="index.css"> 
 	<meta charset="UTF-8">
 	<body>
-		<form>
-			<input type="text" id="search" placeholder='username'>
-			<button type="submit">Submit</button>
+	<div class="pure-g">
+    <div class="pure-u-1-5"></div>
+    <div class="pure-u-3-5">
+		<form class="pure-form">
+			<input class="pure-input-1" type="text" id="search" placeholder='username'>
+			<!-- <button type="submit" class="pure-button pure-button-primary">Submit</button> -->
 		</form>
 		<main>
 		</main>
+		</div>
+		<div class="pure-u-1-5"></div>
+</div>
 	</body>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	<script>
@@ -18,7 +26,7 @@
 			event.preventDefault();
 			var url = "https://api.github.com/users/" + $('#search').val() + '?access_token=e36c94d9874f7626262f92f36c9b78b35e8b50de'; 
 			$.get(url, function(user){
-				$('<article><ul><li>' + '<img src="' + user.avatar_url + '"></li><li>Repos: ' + user.public_repos + '</li><li>Name: ' + user.name + '</li><li>Location: ' + user.location + '</li><li>Email: ' + user.email + '</li></ul></article>').prependTo('main');
+				$('<article><ul><li>' + '<a href="http://github.com/' + $('#search').val() + '"><img src="' + user.avatar_url + '" ></a></li><li><strong>' + user.name + '</strong></li><li>Repos: ' + user.public_repos + '</li><li>Location: ' + user.location + '</li><li>Email: <a href="mailto:' + user.email + '">' + user.email + '</	a></li></ul></article>').prependTo('main');
 			}).always(function(){
 			$('#search').val('');
 			$('main article:gt(3)').slideToggle(function(){
