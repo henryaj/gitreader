@@ -40,10 +40,13 @@
 
 			var user = $.get(url, function(data){
 				var template = $('template').html();
-				console.log(data);
 				var rendered = Mustache.to_html(template, data);
 				
 				$('main').prepend(rendered);	
+				}).fail(function(){
+					alert("Couldn't find that user.");
+				}).always(function(){
+					$('form').val('');
 				})
 			})
 		})
